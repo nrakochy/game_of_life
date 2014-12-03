@@ -1,8 +1,21 @@
+require 'pry'
 class World
   attr_reader :living_world
+  END_OF_THE_WORLD = 50000
+
+  def play_the_game_of_life
+    life_cycles = 0
+    starting_point = [ [ 1, 2 ], [ 1, 1 ], [ 2, 2 ], [ 2, 1 ] ]
+    starting_point.each{|coordinate| introduce_life_into_the_world(coordinate)}
+    while life_cycles <= END_OF_THE_WORLD
+      entropy_tick_to_next_generation_of_life
+      life_cycles += 1
+    end
+  end
 
   def create_empty_world
     @living_world = []
+    self
   end
 
   def introduce_life_into_the_world(living_cell_coordinate)
@@ -17,8 +30,8 @@ class World
 
   def entropy_tick_to_next_generation_of_life
     new_life_to_dead_cells = bring_to_life_all_eligible_neighbors
-    @living_world.keep_if{|living_cell| cell_lives_another_generation?(living_cell)}
-    new_life_to_dead_cells.each{|living_cell| @living_world << living_cell }
+    @living_world.keep_if{ |living_cell| cell_lives_another_generation?(living_cell)}
+    new_life_to_dead_cells.each{ |living_cell| @living_world << living_cell }
     @living_world
   end
 
@@ -122,6 +135,8 @@ class DeadCellRules
     number_of_neighbors == 3
   end
 end
+
+#World.new.create_empty_world.play_the_game_of_life
 
 
 
