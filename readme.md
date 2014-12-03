@@ -7,4 +7,8 @@ The runner has been commented out in game_of_life.rb. Uncomment, and enter ruby 
 ##To-Do
 * Add Grid for Display to see each iteration
 
+For using Opal and Guard
+http://code.tutsplus.com/tutorials/testing-your-ruby-code-with-guard-rspec-pry--cms-19974
+http://www.sitepoint.com/opal-ruby-browser-basics/
+
 

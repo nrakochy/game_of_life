@@ -1,3 +1,6 @@
+require 'opal'
+require 'opal-jquery'
+
 require_relative 'living_cell_coordinate'
 require_relative 'dead_cell_rules'
 require_relative 'living_cell_rules'
