@@ -1,4 +1,3 @@
-require 'pry'
 class World
   attr_reader :living_world
   END_OF_THE_WORLD = 50000
