@@ -6,6 +6,5 @@ The runner has been commented out in game_of_life.rb. Uncomment, and enter ruby 
 
 ##To-Do
 * Add Grid for Display to see each iteration
-* Break single file into multiple files by class
 
 

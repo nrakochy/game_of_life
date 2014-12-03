@@ -1,3 +1,7 @@
+require_relative 'living_cell_coordinate'
+require_relative 'dead_cell_rules'
+require_relative 'living_cell_rules'
+
 class World
   attr_reader :living_world
   END_OF_THE_WORLD = 50000
@@ -94,44 +98,6 @@ class World
 
   def create_living_cell(cell_coordinate)
     LivingCellCoordinate.new(cell_coordinate)
-  end
-end
-
-class LivingCellCoordinate
-  attr_reader :living_coordinate
-
-  def initialize(location_coordinate)
-    @living_coordinate = location_coordinate
-  end
-
-  def find_living_coordinate
-    @living_coordinate
-  end
-
-  def find_all_possible_neighbors
-    given_coordinate = @living_coordinate
-    neighbors = []
-    x_axis_numbers = find_three_surrounding_axis_coordinates(given_coordinate.first)
-    y_axis_numbers = find_three_surrounding_axis_coordinates(given_coordinate.last)
-    x_axis_numbers.each{|x_num| y_axis_numbers.each{|y_num| neighbors << [x_num, y_num]}}
-    neighbors.delete(@living_coordinate)
-    neighbors
-  end
-
-  def find_three_surrounding_axis_coordinates(num)
-    [num - 1, num, num + 1]
-  end
-end
-
-class LivingCellRules
-  def self.stays_alive?(number_of_neighbors)
-    number_of_neighbors == 2 || number_of_neighbors == 3
-  end
-end
-
-class DeadCellRules
-  def self.comes_to_life?(number_of_neighbors)
-    number_of_neighbors == 3
   end
 end
 
