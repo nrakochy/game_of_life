@@ -11,15 +11,8 @@ class World
     living_cell
   end
 
-  def count_the_living
-    @living_world.count
-  end
-
   def entropy_tick_to_next_generation_of_life
-    new_life_to_dead_cells = bring_to_life_all_eligible_neighbors
     @living_world.keep_if{|living_cell| cell_lives_another_generation?(living_cell)}
-    new_life_to_dead_cells.each{|living_cell| @living_world << living_cell }
-    @living_world
   end
 
   def cell_lives_another_generation?(living_cell)
@@ -51,33 +44,21 @@ class World
     living_neighbors.count
   end
 
-  def identify_all_possible_dead_neighbors_of_the_living_world
+  def identify_all_possible_neighbors_of_the_living_world
     all_possible_neighbors = []
     cell_set_of_neighbors = []
-    living_coordinates = find_all_coordinates_of_the_living
-    @living_world.each do |living_cell|
-      cell_set_of_neighbors = living_cell.find_all_possible_neighbors
-      cell_set_of_neighbors.each do |potential_neighbor|
-        all_possible_neighbors << potential_neighbor if !living_coordinates.include?(potential_neighbor)
-      end
-    end
-    all_possible_neighbors.uniq
+    @living_world.each{|living_cell| cell_set_of_neighbors = living_cell.find_all_possible_neighbors }
+    cell_set_of_neighbors.each{|potential_neighbor| all_possible_neighbors << potential_neighbor }
+    all_possible_neighbors
   end
 
-  def bring_to_life_all_eligible_neighbors
+  def check_all_possible_neighbors_for_the_dead_coming_to_life
     new_life_to_dead_cells = []
-    all_possible_neighbors = identify_all_possible_dead_neighbors_of_the_living_world
-    all_possible_neighbors.each do |dead_cell|
-      potential_life = create_living_cell(dead_cell)
-      new_life_to_dead_cells << potential_life if dead_cell_comes_to_life?(potential_life)
-    end
-    new_life_to_dead_cells
+    all_possible_neighbors = identify_all_possible_neighbors_of_the_living_world
+    all_possible_neighbors.each  do
+      |dead_cell| new_life_to_dead_cells << dead_cell if dead_cell_comes_to_life?(dead_cell)}
   end
-
-  def find_all_coordinates_of_the_living
-    coordinates_of_the_living = []
-    @living_world.each{|living_cell| coordinates_of_the_living << living_cell.find_living_coordinate }
-    coordinates_of_the_living
+    new_life_to_dead_cells
   end
 
   def create_living_cell(cell_coordinate)
@@ -88,8 +69,8 @@ end
 class LivingCellCoordinate
   attr_reader :living_coordinate
 
-  def initialize(location_coordinate)
-    @living_coordinate = location_coordinate
+  def initialize(given_coordinate)
+    @living_coordinate = given_coordinate
   end
 
   def find_living_coordinate
