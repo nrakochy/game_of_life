@@ -135,26 +135,6 @@ describe World do
     end
   end
 
-  describe '#find_all_coordinates_of_the_living' do
-    it 'returns an array with 2 cells from the living_world for a cell with 2 neighbor' do
-      first_cell = @new_world.introduce_life_into_the_world([1,1])
-      expect(@new_world.find_all_coordinates_of_the_living).to include([1,1])
-    end
-
-    it 'returns an array with the coordinates of two living cells' do
-      first_cell = @new_world.introduce_life_into_the_world([1,1])
-      last_cell = @new_world.introduce_life_into_the_world([0,1])
-      expect(@new_world.find_all_coordinates_of_the_living).to include([ 1, 1], [ 0, 1])
-    end
-  end
-
-
-  describe '#number_of_living_neighbors' do
-    it 'counts the number of living_neighbors in the array' do
-      expect(@new_world.number_of_living_neighbors([1,2,3])).to eq(3)
-    end
-  end
-
   describe '#dead_cell_comes_to_life?' do
    it 'returns false if a cell has less than two neighbors' do
       first_cell = @new_world.introduce_life_into_the_world([1,1])

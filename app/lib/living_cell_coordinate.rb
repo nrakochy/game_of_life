@@ -1,3 +1,4 @@
+require 'pry'
 class LivingCellCoordinate
   attr_reader :living_coordinate
 
@@ -30,9 +31,12 @@ class LivingCellCoordinate
   end
 
   def find_dead_neighbors(living_cells)
-    all_possible_neighbors = find_all_possible_neighbors(living_cells)
-    living_neighbors = find_living_neighbors(living_cells)
-    all_possible_neighbors - living_neighbors
+    dead_neighbors = []
+    living_coordinates = []
+    all_possible_neighbors = find_all_possible_neighbors
+    living_cells.each{ |living_cell| living_coordinates << living_cell.find_living_coordinate }
+    all_possible_neighbors.each{ |cell_coordinate| dead_neighbors << cell_coordinate if !living_coordinates.include?(cell_coordinate) }
+    dead_neighbors
   end
 
   def find_three_surrounding_axis_coordinates(num)

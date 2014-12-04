@@ -1,3 +1,4 @@
+require 'pry'
 require 'opal'
 require 'opal-jquery'
 require_relative 'living_cell_coordinate'
@@ -54,29 +55,19 @@ class World
   end
 
   def count_number_of_living_neighbors(cell)
-    living_neighbors = identify_living_neighbors_of_cell(cell)
-    number_of_living_neighbors(living_neighbors)
+    identify_living_neighbors_of_cell(cell).count
   end
 
   def identify_living_neighbors_of_cell(living_cell)
     living_cell.find_living_neighbors(@living_world)
   end
 
-  def number_of_living_neighbors(living_neighbors)
-    living_neighbors.count
-  end
-
   def identify_all_possible_dead_neighbors_of_the_living_world
-    all_possible_neighbors = []
-    cell_set_of_neighbors = []
-    living_coordinates = find_all_coordinates_of_the_living
+    neighbors = []
     @living_world.each do |living_cell|
-      cell_set_of_neighbors = living_cell.find_all_possible_neighbors
-      cell_set_of_neighbors.each do |potential_neighbor|
-        all_possible_neighbors << potential_neighbor if !living_coordinates.include?(potential_neighbor)
-      end
+      neighbors += living_cell.find_dead_neighbors(@living_world)
     end
-    all_possible_neighbors.uniq
+    neighbors.uniq
   end
 
   def bring_to_life_all_eligible_neighbors
@@ -87,12 +78,6 @@ class World
       new_life_to_dead_cells << potential_life if dead_cell_comes_to_life?(potential_life)
     end
     new_life_to_dead_cells
-  end
-
-  def find_all_coordinates_of_the_living
-    coordinates_of_the_living = []
-    @living_world.each{|living_cell| coordinates_of_the_living << living_cell.find_living_coordinate }
-    coordinates_of_the_living
   end
 
   def create_living_cell(cell_coordinate)
