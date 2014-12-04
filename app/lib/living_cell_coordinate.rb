@@ -19,6 +19,22 @@ class LivingCellCoordinate
     neighbors
   end
 
+  def find_living_neighbors(living_cells)
+    living_neighbors = []
+    all_possible_neighbors = find_all_possible_neighbors
+    living_cells.each do |living_cell|
+      cell_coordinate = living_cell.find_living_coordinate
+       living_neighbors << living_cell if all_possible_neighbors.include?(cell_coordinate)
+    end
+    living_neighbors
+  end
+
+  def find_dead_neighbors(living_cells)
+    all_possible_neighbors = find_all_possible_neighbors(living_cells)
+    living_neighbors = find_living_neighbors(living_cells)
+    all_possible_neighbors - living_neighbors
+  end
+
   def find_three_surrounding_axis_coordinates(num)
     [num - 1, num, num + 1]
   end

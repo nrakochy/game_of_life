@@ -59,13 +59,7 @@ class World
   end
 
   def identify_living_neighbors_of_cell(living_cell)
-    living_neighbors = []
-    all_possible_neighbors = living_cell.find_all_possible_neighbors
-    @living_world.each do |cell_from_the_living_world|
-      cell_location = cell_from_the_living_world.find_living_coordinate
-      living_neighbors << cell_from_the_living_world if all_possible_neighbors.include?(cell_location)
-    end
-    living_neighbors
+    living_cell.find_living_neighbors(@living_world)
   end
 
   def number_of_living_neighbors(living_neighbors)
