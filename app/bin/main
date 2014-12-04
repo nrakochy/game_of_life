@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require_relative '../lib/game_of_life'
+
+World.new.create_empty_world.play_the_game_of_life

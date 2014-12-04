@@ -22,13 +22,13 @@ describe World do
     end
   end
 
-  describe 'entropy_tick_to_next_generation_of_life' do
+  describe 'tick_to_next_generation_of_life' do
     it 'keeps 1 living_cell of 3 which should live to the next generation' do
       first_cell = @new_world.introduce_life_into_the_world([1,1])
       second_cell = @new_world.introduce_life_into_the_world([2,1])
       last_cell = @new_world.introduce_life_into_the_world([0,1])
-      expect(@new_world.entropy_tick_to_next_generation_of_life).to include(first_cell)
-      expect(@new_world.entropy_tick_to_next_generation_of_life).not_to include(second_cell, last_cell)
+      expect(@new_world.tick_to_next_generation_of_life).to include(first_cell)
+      expect(@new_world.tick_to_next_generation_of_life).not_to include(second_cell, last_cell)
     end
 
     it 'keeps 3 living_cells of 4 which should live to the next generation' do
@@ -36,8 +36,8 @@ describe World do
       second_cell = @new_world.introduce_life_into_the_world([2,1])
       third_cell = @new_world.introduce_life_into_the_world([1,0])
       last_cell = @new_world.introduce_life_into_the_world([8,1])
-      expect(@new_world.entropy_tick_to_next_generation_of_life).to include(first_cell, second_cell, third_cell)
-      expect(@new_world.entropy_tick_to_next_generation_of_life).not_to include(last_cell)
+      expect(@new_world.tick_to_next_generation_of_life).to include(first_cell, second_cell, third_cell)
+      expect(@new_world.tick_to_next_generation_of_life).not_to include(last_cell)
     end
 
     it 'gives life to a dead cell with 3 living neighbors' do
@@ -45,7 +45,7 @@ describe World do
       second_cell = @new_world.introduce_life_into_the_world([1,2])
       third_cell = @new_world.introduce_life_into_the_world([2,2])
       last_cell = @new_world.introduce_life_into_the_world([8,1])
-      @new_world.entropy_tick_to_next_generation_of_life
+      @new_world.tick_to_next_generation_of_life
       expect(@new_world.living_world).not_to include(last_cell)
     end
   end
