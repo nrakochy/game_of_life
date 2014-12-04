@@ -1,4 +1,3 @@
-require 'pry'
 class LivingCellCoordinate
   attr_reader :living_coordinate
 

@@ -1,4 +1,3 @@
-require 'pry'
 require 'opal'
 require 'opal-jquery'
 require_relative 'living_cell_coordinate'
@@ -7,34 +6,20 @@ require_relative 'living_cell_rules'
 
 class World
   attr_reader :living_world
-  END_OF_THE_WORLD = 35000
-
-  def play_the_game_of_life
-    life_cycles = 0
-    starting_point = [
-      [ 1, 2 ], [ 1, 1 ], [ 2, 2 ], [ 2, 1 ], [ 0, 0 ], [ 0, 1 ], [ 0, 2 ]
-    ]
-    starting_point.each{|coordinate| introduce_life_into_the_world(coordinate)}
-    while life_cycles <= END_OF_THE_WORLD
-      tick_to_next_generation_of_life
-      puts "Number of living cells: #{count_the_living}"
-      life_cycles += 1
-    end
-  end
 
   def create_empty_world
     @living_world = []
     self
   end
 
+  def count_living_cells
+    @living_world.count
+  end
+
   def introduce_life_into_the_world(living_cell_coordinate)
     living_cell = create_living_cell(living_cell_coordinate)
     @living_world << living_cell
     living_cell
-  end
-
-  def count_the_living
-    @living_world.count
   end
 
   def tick_to_next_generation_of_life

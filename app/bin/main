@@ -1,4 +1,23 @@
 #!/usr/bin/env ruby
 require_relative '../lib/game_of_life'
 
-World.new.create_empty_world.play_the_game_of_life
+END_OF_THE_WORLD = 35000
+
+def play_the_game_of_life
+  life_cycles = 0
+  world = World.new
+  world.create_empty_world
+  beginning_of_world = [
+  [ 1, 1 ], [ 2, 1 ], [ 2, 2 ], [ 2, 3 ], [ 2, 4 ]
+  ]
+  beginning_of_world.each{|coordinate| world.introduce_life_into_the_world(coordinate)}
+  while life_cycles <= END_OF_THE_WORLD
+    world.tick_to_next_generation_of_life
+    puts "Number of living cells: #{world.count_living_cells}"
+    life_cycles += 1
+  end
+end
+
+play_the_game_of_life
+
+
