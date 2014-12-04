@@ -9,7 +9,6 @@ class World
 
   def create_empty_world
     @living_world = []
-    self
   end
 
   def count_living_cells
@@ -49,9 +48,7 @@ class World
 
   def identify_all_possible_dead_neighbors_of_the_living_world
     neighbors = []
-    @living_world.each do |living_cell|
-      neighbors += living_cell.find_dead_neighbors(@living_world)
-    end
+    @living_world.each{|living_cell| neighbors += living_cell.find_dead_neighbors(@living_world)}
     neighbors.uniq
   end
 
