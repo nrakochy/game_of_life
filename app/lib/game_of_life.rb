@@ -1,8 +1,7 @@
 require 'opal'
 require 'opal-jquery'
 require_relative 'living_cell_coordinate'
-require_relative 'dead_cell_rules'
-require_relative 'living_cell_rules'
+require_relative 'individual_cell_rules_for_life'
 
 class World
   attr_reader :living_world
@@ -30,12 +29,12 @@ class World
 
   def cell_lives_another_generation?(living_cell)
     living_neighbor_count = count_number_of_living_neighbors(living_cell)
-    LivingCellRules.stays_alive?(living_neighbor_count)
+    IndividualCellRulesForLife.stays_alive?(living_neighbor_count)
   end
 
   def dead_cell_comes_to_life?(dead_cell)
     living_neighbor_count = count_number_of_living_neighbors(dead_cell)
-    DeadCellRules.comes_to_life?(living_neighbor_count)
+    IndividualCellRulesForLife.comes_to_life?(living_neighbor_count)
   end
 
   def count_number_of_living_neighbors(cell)
