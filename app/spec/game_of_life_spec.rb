@@ -56,70 +56,7 @@ describe World do
     end
   end
 
-  describe '#count_number_of_living_neighbors' do
-    it 'returns 1 for a living cell with 1 neighbor' do
-      first_cell = @new_world.introduce_life_into_the_world([1,1])
-      last_cell = @new_world.introduce_life_into_the_world([0,1])
-      expect(@new_world.count_number_of_living_neighbors(first_cell)).to eq(1)
-    end
-
-    it 'returns an array with 2 cells from the living_world for a cell with 2 neighbor' do
-      first_cell = @new_world.introduce_life_into_the_world([1,1])
-      second_cell = @new_world.introduce_life_into_the_world([2,1])
-      last_cell = @new_world.introduce_life_into_the_world([0,1])
-      expect(@new_world.count_number_of_living_neighbors(first_cell)).to eq(2)
-    end
-  end
-
-  describe '#cell_lives_another_generation?' do
-   it 'returns false if a cell has less than two neighbors' do
-      first_cell = @new_world.introduce_life_into_the_world([1,1])
-      second_cell = @new_world.introduce_life_into_the_world([2,1])
-      expect(@new_world.cell_lives_another_generation?(first_cell)).to eq(false)
-    end
-
-    it 'returns true if a cell has two neighbors' do
-      first_cell = @new_world.introduce_life_into_the_world([1,1])
-      second_cell = @new_world.introduce_life_into_the_world([2,1])
-      last_cell = @new_world.introduce_life_into_the_world([0,1])
-      expect(@new_world.cell_lives_another_generation?(first_cell)).to eq(true)
-    end
-  end
-
-  describe '#identify_living_neighbors_of_cell' do
-    it 'returns an array with 1 cell the living_world for a cell with 1 neighbor' do
-      first_cell = @new_world.introduce_life_into_the_world([1,1])
-      last_cell = @new_world.introduce_life_into_the_world([0,1])
-      expect(@new_world.identify_living_neighbors_of_cell(first_cell)).to eq([last_cell])
-    end
-
-    it 'returns an array with 2 cells from the living_world for a cell with 2 neighbor' do
-      first_cell = @new_world.introduce_life_into_the_world([1,1])
-      second_cell = @new_world.introduce_life_into_the_world([2,1])
-      last_cell = @new_world.introduce_life_into_the_world([0,1])
-      expect(@new_world.identify_living_neighbors_of_cell(first_cell)).to contain_exactly(second_cell, last_cell)
-    end
-  end
-
-  describe '#identify_all_possible_neighbors_of_the_living_world' do
-    it 'returns an array with all possible neighbors for the living_world of 1 living cell' do
-      first_cell = @new_world.introduce_life_into_the_world([1,1])
-      expect(@new_world.identify_all_possible_dead_neighbors_of_the_living_world).to eq([
-       [ 0, 0 ], [ 0, 1 ], [ 0, 2 ], [ 1, 0 ],  [ 1, 2], [ 2, 0 ], [ 2, 1], [ 2, 2 ]
-      ])
-    end
-
-    it 'returns an array with unique possible neighbors for the living_world of 2 living cells' do
-      first_cell = @new_world.introduce_life_into_the_world([1,1])
-      second_cell = @new_world.introduce_life_into_the_world([2,2])
-      expect(@new_world.identify_all_possible_dead_neighbors_of_the_living_world).to eq([
-       [ 0, 0 ], [ 0, 1 ], [ 0, 2 ], [ 1, 0 ], [ 1, 2], [ 2, 0 ], [ 2, 1],
-       [ 1, 3 ], [ 2, 3 ], [ 3, 1 ], [ 3, 2 ], [ 3, 3]
-      ])
-    end
-  end
-
-  describe '#bring_to_life_all_eligible_neighbors' do
+    describe '#bring_to_life_all_eligible_neighbors' do
     it 'returns an empty array if no dead cells come to life' do
       first_cell = @new_world.introduce_life_into_the_world([1,1])
       expect(@new_world.bring_to_life_all_eligible_neighbors.empty?).to eq(true)
@@ -134,23 +71,6 @@ describe World do
       expect(@new_world.bring_to_life_all_eligible_neighbors.first.find_living_coordinate).to eq([2,1])
     end
   end
-
-  describe '#dead_cell_comes_to_life?' do
-   it 'returns false if a cell has less than two neighbors' do
-      first_cell = @new_world.introduce_life_into_the_world([1,1])
-      second_cell = @new_world.introduce_life_into_the_world([2,1])
-      dead_cell = @new_world.create_living_cell([0,0])
-      expect(@new_world.dead_cell_comes_to_life?(dead_cell)).to eq(false)
-    end
-
-    it 'returns true if a cell has two neighbors' do
-      first_cell = @new_world.introduce_life_into_the_world([1,1])
-      second_cell = @new_world.introduce_life_into_the_world([2,1])
-      dead_cell = @new_world.create_living_cell([1,2])
-      expect(@new_world.cell_lives_another_generation?(dead_cell)).to eq(true)
-    end
-  end
-
 end
 
 

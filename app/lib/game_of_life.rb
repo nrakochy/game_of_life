@@ -24,18 +24,13 @@ class World
   end
 
   def bring_to_life_all_eligible_neighbors
-    new_life_to_dead_cells = []
-    all_possible_neighbors = identify_all_possible_dead_neighbors_of_the_living_world
-    all_possible_neighbors.each do |dead_cell|
-      potential_life = create_living_cell(dead_cell)
-      new_life_to_dead_cells << potential_life if dead_cell_comes_to_life?(potential_life)
-    end
-    new_life_to_dead_cells
+    dead_eligible_for_life = CellCommunityRules.find_dead_neighbors_eligible_for_life(@living_world)
+    dead_eligible_for_life.each{|dead_cell| @living_cells << create_living_cell(dead_cell)}
   end
 
 
   def cell_lives_another_generation?(living_cell)
-    CellCommunityRules.cell_lives_another_generation?(living_neighbor_count, @living_cells)
+    CellCommunityRules.cell_lives_another_generation?(living_cell, @living_cells)
   end
 
   def dead_cell_comes_to_life?(dead_cell)
