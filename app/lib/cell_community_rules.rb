@@ -27,7 +27,8 @@ class CellCommunityRules
   end
 
   def dead_cell_comes_to_life?(dead_cell)
-    living_neighbor_count = count_number_of_living_neighbors(dead_cell)
+    cell = LivingCellCoordinate.new(dead_cell)
+    living_neighbor_count = count_number_of_living_neighbors(cell)
     IndividualCellRulesForLife.comes_to_life?(living_neighbor_count)
   end
 
@@ -35,8 +36,8 @@ class CellCommunityRules
     identify_living_neighbors_of_cell(cell).count
   end
 
-  def identify_living_neighbors_of_cell(given_cell)
-    given_cell.find_living_neighbors(@living_cells)
+  def identify_living_neighbors_of_cell(cell)
+     cell.find_living_neighbors(@living_cells)
   end
 
   def identify_all_possible_dead_neighbors_of_the_living_world
@@ -47,10 +48,12 @@ class CellCommunityRules
 
   def find_dead_neighbors_eligible_for_life
     new_life_to_dead_cells = []
-    all_possible_neighbors = identify_all_possible_dead_neighbors_of_the_living_world(all_living_cells)
-    all_possible_neighbors.each do |dead_cell|
-      new_life_to_dead_cells << potential_life if dead_cell_comes_to_life?(potential_life)
+    @living_cells.each do |living_cell|
+      dead_neighbors = living_cell.find_dead_neighbors(@living_cells)
+      dead_neighbors.each do |potential_life|
+        new_life_to_dead_cells << potential_life if dead_cell_comes_to_life?(potential_life)
+      end
     end
-    new_life_to_dead_cells
+    new_life_to_dead_cells.uniq
   end
 end

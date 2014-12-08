@@ -24,7 +24,7 @@ class LivingCellCoordinate
     all_possible_neighbors = find_all_possible_neighbors
     living_cells.each do |living_cell|
       cell_coordinate = living_cell.find_living_coordinate
-       living_neighbors << living_cell if all_possible_neighbors.include?(cell_coordinate)
+      living_neighbors << living_cell if all_possible_neighbors.include?(cell_coordinate)
     end
     living_neighbors
   end
