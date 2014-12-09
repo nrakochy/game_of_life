@@ -29,16 +29,25 @@ describe World do
     end
 
     context '3 living cells' do
-      xit 'keeps 3 living cells and adds 1 dead cell to the living world' do
+      it 'keeps 3 living cells and adds 1 new cell to the living world' do
         expect(world_with_three_cells.tick_to_next_generation_of_life.count).to eq(4)
       end
     end
 
     context '4 living cells' do
-      xit 'keeps 3 living_cells of 4 which should live to the next generation' do
-        expect(world_with_four_cells.tick_to_next_generation_of_life.count).to eq(3)
+      it 'keeps 3 living_cells of 4 which should live to the next generation and
+      adds a new living cell from the eligible neighbors' do
+        expect(world_with_four_cells.tick_to_next_generation_of_life.count).to eq(4)
       end
     end
+
+    context '5 living cells' do
+      it 'keeps 4 living_cells of 5 which should live to the next generation and
+      adds 3 new living cells from the eligible neighbors' do
+        expect(world_with_five_cells.tick_to_next_generation_of_life.count).to eq(7)
+      end
+    end
+
   end
 
     describe '#bring_to_life_all_eligible_neighbors' do
