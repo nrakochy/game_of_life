@@ -26,6 +26,14 @@ class CellCommunityRules
     IndividualCellRulesForLife.stays_alive?(living_neighbor_count)
   end
 
+  def keep_alive_all_eligible_living_cells
+    eligible_for_life = []
+    @living_cells.each do |living_cell|
+      eligible_for_life << living_cell if cell_lives_another_generation?(living_cell)
+    end
+    eligible_for_life
+  end
+
   def dead_cell_comes_to_life?(dead_cell)
     cell = LivingCellCoordinate.new(dead_cell)
     living_neighbor_count = count_number_of_living_neighbors(cell)
