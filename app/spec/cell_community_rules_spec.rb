@@ -52,21 +52,6 @@ describe CellCommunityRules do
     end
   end
 
-  describe '#identify_all_possible_dead_neighbors_of_the_living_world' do
-    it 'returns an array with all possible neighbors for the living_world of 1 living cell' do
-      expect(@rules_world_with_one_cell.identify_all_possible_dead_neighbors_of_the_living_world).to eq([
-       [ 0, 0 ], [ 0, 1 ], [ 0, 2 ], [ 1, 0 ],  [ 1, 2], [ 2, 0 ], [ 2, 1], [ 2, 2 ]
-      ])
-    end
-
-    it 'returns an array with unique possible neighbors for the living_world of 2 living cells' do
-      expect(@rules_world_with_two_cells.identify_all_possible_dead_neighbors_of_the_living_world).to eq([
-       [ 0, 0 ], [ 0, 1 ], [ 0, 2 ], [ 1, 0 ], [ 1, 2 ], [ 2, 0 ], [ 2 , 2 ],
-       [ 3, 0 ], [ 3, 1 ], [ 3, 2]
-      ])
-    end
-  end
-
   describe '#dead_cell_comes_to_life?' do
     it 'returns false if a cell has 2 neighbors' do
       dead_cell = [0,0]

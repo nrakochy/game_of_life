@@ -1,5 +1,4 @@
 require_relative '../lib/game_of_life'
-require_relative '../lib/individual_cell_rules_for_life'
 require_relative '../lib/cell_community_rules'
 
 describe World do
