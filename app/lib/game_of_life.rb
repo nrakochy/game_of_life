@@ -9,7 +9,7 @@ class World
 
   def initialize(living_world_coordinates)
     @living_world = create_community_of_living_cells(living_world_coordinates)
-    @cell_community_rules = CellCommunityRules.new(@living_world)
+    @cell_community_rules = find_community_rules(@living_world)
   end
 
   def add_living_cell_to_living_world(living_cell)
@@ -24,12 +24,13 @@ class World
   end
 
   def bring_to_life_all_eligible_neighbors
+    new_life = []
     dead_eligible_for_life = @cell_community_rules.find_dead_neighbors_eligible_for_life
     dead_eligible_for_life.each do |dead_cell|
       new_cell = create_living_cell(dead_cell)
-      @living_world << new_cell
+      new_life << new_cell
     end
-    @living_world
+    new_life
   end
 
 
@@ -40,6 +41,8 @@ class World
   def dead_cell_comes_to_life?(dead_cell)
     @cell_community_rules.dead_cell_comes_to_life?(living_neighbor_count, @living_cells)
   end
+
+  private
 
   def create_living_cell(cell_coordinate)
     LivingCellCoordinate.new(cell_coordinate)
@@ -53,6 +56,11 @@ class World
     end
     community
   end
+
+  def find_community_rules(living_cell_community)
+    CellCommunityRules.new(living_cell_community)
+  end
+
 end
 
 

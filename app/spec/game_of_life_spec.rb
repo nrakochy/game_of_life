@@ -7,15 +7,17 @@ describe World do
   let(:cell2){ [ 2, 1 ] }
   let(:cell3){ [ 1, 2 ] }
   let(:cell4){ [ 3, 1 ] }
+  let(:cell5){ [ 4, 1 ] }
+  let(:world_with_one_cell){ World.new([cell1])}
   let(:world_with_two_cells){ World.new([cell1, cell2])}
   let(:world_with_three_cells){ World.new([cell1, cell2, cell3]) }
   let(:world_with_four_cells){ World.new([cell1, cell2, cell3, cell4]) }
+  let(:world_with_five_cells){ World.new([cell1, cell2, cell3, cell4, cell5]) }
 
   describe '#create_community_of_living_cells' do
     it 'adds living_cell Object to the living world' do
-      new_world = World.new([ [ 1, 1 ] ])
-      expect(new_world.living_world.first.class).to eq(LivingCellCoordinate)
-      expect(new_world.living_world.count).to eq(1)
+      expect(world_with_one_cell.living_world.first.class).to eq(LivingCellCoordinate)
+      expect(world_with_one_cell.living_world.count).to eq(1)
     end
   end
 
@@ -27,46 +29,52 @@ describe World do
     end
 
     context '3 living cells' do
-      it 'keeps 3 living cells and adds 1 dead cell to the living world' do
+      xit 'keeps 3 living cells and adds 1 dead cell to the living world' do
         expect(world_with_three_cells.tick_to_next_generation_of_life.count).to eq(4)
       end
     end
 
-    xit 'keeps 3 living_cells of 4 which should live to the next generation' do
-      expect(world_with_four_cells.tick_to_next_generation_of_life.count).to eq(3)
-    end
-
-    xit 'gives life to a dead cell with 3 living neighbors' do
-      expect(new_world.living_world).not_to include(last_cell)
-    end
-  end
-
-  describe '#create_living_cell' do
-    it 'creates a living_cell_coordinate Object' do
-      expect(new_world.create_living_cell([1,1]).class).to eq(LivingCellCoordinate)
+    context '4 living cells' do
+      xit 'keeps 3 living_cells of 4 which should live to the next generation' do
+        expect(world_with_four_cells.tick_to_next_generation_of_life.count).to eq(3)
+      end
     end
   end
 
     describe '#bring_to_life_all_eligible_neighbors' do
-    it 'returns an empty array if no dead cells come to life' do
-      first_cell = new_world.introduce_life_into_the_world([1,1])
-      expect(new_world.bring_to_life_all_eligible_neighbors.empty?).to eq(true)
-    end
+      context 'world with 2 cells or less' do
+        it 'returns an empty array with no LivingCells' do
+          life_in_the_world = world_with_one_cell.bring_to_life_all_eligible_neighbors
+          life_in_the_two_cell_world = world_with_two_cells.bring_to_life_all_eligible_neighbors
+          expect(life_in_the_world.count).to eq(0)
+          expect(life_in_the_two_cell_world.count).to eq(0)
+        end
+      end
 
-    it 'creates life for 1 dead cell with 3 living neighbors' do
-      first_cell = new_world.introduce_life_into_the_world([1,1])
-      second_cell = new_world.introduce_life_into_the_world([1,2])
-      third_cell = new_world.introduce_life_into_the_world([2,2])
-      expect(new_world.bring_to_life_all_eligible_neighbors.count).to eq(1)
-      expect(new_world.bring_to_life_all_eligible_neighbors.first.class).to eq(LivingCellCoordinate)
-      expect(new_world.bring_to_life_all_eligible_neighbors.first.find_living_coordinate).to eq([2,1])
+      context 'world with 3 cells' do
+        it 'returns an array with 1 LivingCells' do
+          life_in_the_three_cell_world = world_with_three_cells.bring_to_life_all_eligible_neighbors
+          expect(life_in_the_three_cell_world.count).to eq(1)
+        end
+      end
+
+      context 'world with 4 cells' do
+        it 'returns an array with 1 new Living Cells' do
+          life_in_the_four_cell_world = world_with_four_cells.bring_to_life_all_eligible_neighbors
+          expect(life_in_the_four_cell_world.count).to eq(1)
+        end
+      end
+
+      context 'world with 5 cells' do
+        it 'returns an array with 3 new Living Cells' do
+          life_in_the_five_cell_world = world_with_five_cells.bring_to_life_all_eligible_neighbors
+          expect(life_in_the_five_cell_world.count).to eq(3)
+        end
+      end
+
     end
-  end
 end
 
-def find_cell_coordinate(cell)
-  cell.find_living_coordinate
-end
 
 
 
