@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require_relative '../lib/world'
 
-END_OF_THE_WORLD = 35000
+END_OF_THE_WORLD = 100
 
 def play_the_game_of_life
   life_cycles = 0
@@ -10,8 +10,8 @@ def play_the_game_of_life
   ]
   world = World.new(beginning_of_world)
   while life_cycles <= END_OF_THE_WORLD
-    world.tick_to_next_generation_of_life
     puts "Number of living cells: #{world.count_living_cells}"
+    world.tick_to_next_generation_of_life
     life_cycles += 1
   end
 end

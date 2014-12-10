@@ -13,6 +13,7 @@ class World
     new_life_to_dead_cells = bring_to_life_all_eligible_neighbors
     @living_world = keep_alive_all_eligible_living_cells
     new_life_to_dead_cells.each{ |living_cell| @living_world << living_cell }
+    @cell_community_rules = find_community_rules(@living_world)
     @living_world
   end
 
@@ -25,7 +26,8 @@ class World
     create_community_of_living_cells(dead_eligible_for_life)
   end
 
-  def find_living_cell_community_coordinates(world_of_living_cells)
+  def count_living_cells
+    @living_world.count
   end
 
 
