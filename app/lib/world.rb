@@ -25,6 +25,10 @@ class World
     create_community_of_living_cells(dead_eligible_for_life)
   end
 
+  def find_living_cell_community_coordinates(world_of_living_cells)
+  end
+
+
   private
 
   def create_living_cell(cell_coordinate)
@@ -42,6 +46,10 @@ class World
 
   def find_community_rules(living_cell_community)
     CellCommunityRules.new(living_cell_community)
+  end
+
+  def find_cell_coordinate(cell)
+    cell.find_living_coordinate
   end
 end
 

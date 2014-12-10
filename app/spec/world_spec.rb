@@ -1,4 +1,4 @@
-require_relative '../lib/game_of_life'
+require_relative '../lib/world'
 require_relative '../lib/cell_community_rules'
 
 describe World do
